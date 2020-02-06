@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import NewTodoForm from "./components/NewTodoForm";
+import NewTodoForm from "../components/NewTodoForm";
+import TodoList from "../components/TodoList";
 
-class Todos extends Component {
+class TodosApp extends Component {
   constructor(props) {
     super(props);
 
@@ -88,25 +89,15 @@ class Todos extends Component {
         {todos.length === 0 ? (
           <span>No Items</span>
         ) : (
-          <ul>
-            {todos.map(({ title, done }, index) => (
-              <li key={index}>
-                <input
-                  type="checkbox"
-                  onChange={event => this.handleCheck(event, index)}
-                  checked={done}
-                />{" "}
-                <span className={done ? "done" : ""}>{title}</span>{" "}
-                <button onClick={() => this.handleDeleteTodo(index)}>
-                  delete todo
-                </button>
-              </li>
-            ))}
-          </ul>
+          <TodoList
+            todos={todos}
+            handleCheck={this.handleCheck.bind(this)}
+            handleDeleteTodo={this.handleDeleteTodo.bind(this)}
+          />
         )}
       </div>
     );
   }
 }
 
-export default Todos;
+export default TodosApp;
