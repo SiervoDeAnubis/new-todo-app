@@ -23,8 +23,8 @@ const initialState = {
   ]
 };
 
-const actions = {
-  addNewTodo(newTodo) {
+export const actions = {
+  newTodoChange(newTodo) {
     return {
       type: ADD_NEW_TODO,
       newTodo
@@ -33,5 +33,14 @@ const actions = {
 };
 
 export function reducer(state = initialState, action) {
-  return state;
+  switch (action.type) {
+    case ADD_NEW_TODO: {
+      return {
+        ...state,
+        newTodo: action.newTodo
+      };
+    }
+    default:
+      return state;
+  }
 }

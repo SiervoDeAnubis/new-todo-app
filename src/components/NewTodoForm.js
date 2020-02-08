@@ -8,7 +8,7 @@ const NewTodoForm = props => {
         type="text"
         id="new-todo"
         value={props.newTodo}
-        onChange={props.handleNewTodo}
+        onChange={event => props.handleNewTodo(event.target.value)}
       />
       <button> Add New Todo </button>
     </form>
