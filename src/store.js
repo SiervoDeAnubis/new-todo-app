@@ -1,5 +1,8 @@
 const CHANGE_NEW_TODO = "CHANGE_NEW_TODO";
 const ADD_NEW_TODO = "ADD_NEW_TODO";
+const TOGGLE_TODO_DONE = "TOGGLE_TODO_DONE";
+const ALL_TODOS_DONE = "ALL_TODOS_DONE";
+const DELETE_TODO = "DELETE_TODO";
 
 const initialState = {
   message: "hello world!!",
@@ -36,6 +39,24 @@ export const actions = {
       type: ADD_NEW_TODO,
       todo
     };
+  },
+  toggleTodoDone(todos) {
+    return {
+      type: TOGGLE_TODO_DONE,
+      todos
+    };
+  },
+  allTodosDone(todos) {
+    return {
+      type: ALL_TODOS_DONE,
+      todos
+    };
+  },
+  deleteTodo(todos) {
+    return {
+      type: DELETE_TODO,
+      todos
+    };
   }
 };
 
@@ -51,6 +72,24 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         todos: [...state.todos, action.todo]
+      };
+    }
+    case TOGGLE_TODO_DONE: {
+      return {
+        ...state,
+        todos: [...action.todos]
+      };
+    }
+    case ALL_TODOS_DONE: {
+      return {
+        ...state,
+        todos: [...action.todos]
+      };
+    }
+    case DELETE_TODO: {
+      return {
+        ...state,
+        todos: [...action.todos]
       };
     }
     default:

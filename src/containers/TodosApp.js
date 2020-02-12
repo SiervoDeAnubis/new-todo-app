@@ -16,27 +16,21 @@ class TodosApp extends Component {
   }
 
   handleToggleTodoDone(event, index) {
-    const todos = [...this.state.todos];
+    const todos = [...this.props.todos];
     todos[index] = { ...todos[index] }; // object.assign
     todos[index].done = event.target.checked;
-    this.setState({
-      todos
-    });
+    this.props.onToggleTodoDone(todos);
   }
 
-  handleAllDone() {
-    const todos = this.state.todos.map(todo => ({ ...todo, done: true }));
-    this.setState({
-      todos
-    });
+  handleAllTodosDone() {
+    const todos = this.props.todos.map(todo => ({ ...todo, done: true }));
+    this.props.onAllTodosDone(todos);
   }
 
-  handleDeleteTodo(index) {
-    const todos = [...this.state.todos];
+  handleTodoDelete(index) {
+    const todos = [...this.props.todos];
     todos.splice(index, 1);
-    this.setState({
-      todos
-    });
+    this.props.onDeleteTodo(todos);
   }
 
   render() {
@@ -49,14 +43,14 @@ class TodosApp extends Component {
           handleAddNewTodo={this.handleAddNewTodo.bind(this)}
           handleChangeTodo={onChangeNewTodo}
         />
-        <button onClick={() => this.handleToggleTodoDone()}>All Done</button>
+        <button onClick={() => this.handleAllTodosDone()}>All Done</button>
         {todos.length === 0 ? (
           <span>No Items</span>
         ) : (
           <TodoList
             todos={todos}
-            handleCheck={this.handleCheck.bind(this)}
-            handleDeleteTodo={this.handleDeleteTodo.bind(this)}
+            handleToggleTodoDone={this.handleToggleTodoDone.bind(this)}
+            handleTodoDelete={this.handleTodoDelete.bind(this)}
           />
         )}
       </div>
@@ -79,6 +73,15 @@ const mapDispatchToProps = dispatch => {
     },
     onAddNewTodo(todo) {
       dispatch(actions.addNewTodo(todo));
+    },
+    onToggleTodoDone(todos) {
+      dispatch(actions.toggleTodoDone(todos));
+    },
+    onAllTodosDone(todos) {
+      dispatch(actions.allTodosDone(todos));
+    },
+    onDeleteTodo(todos) {
+      dispatch(actions.deleteTodo(todos));
     }
   };
 };

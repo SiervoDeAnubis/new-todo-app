@@ -5,11 +5,11 @@ const ListItem = props => {
     <li key={props.index}>
       <input
         type="checkbox"
-        onChange={event => props.handleCheck(event, props.index)}
+        onChange={event => props.handleToggleTodoDone(event, props.index)}
         checked={props.done}
       />{" "}
       <span className={props.done ? "done" : ""}>{props.title}</span>{" "}
-      <button onClick={() => props.handleDeleteTodo(props.index)}>
+      <button onClick={() => props.handleTodoDelete(props.index)}>
         delete todo
       </button>
     </li>

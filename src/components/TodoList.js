@@ -10,8 +10,8 @@ const TodoList = props => {
           title={title}
           done={done}
           index={index}
-          handleCheck={props.handleCheck}
-          handleDeleteTodo={props.handleDeleteTodo}
+          handleToggleTodoDone={props.handleToggleTodoDone}
+          handleTodoDelete={props.handleTodoDelete}
         />
       ))}
     </ul>
