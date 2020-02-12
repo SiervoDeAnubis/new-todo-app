@@ -16,10 +16,7 @@ class TodosApp extends Component {
   }
 
   handleToggleTodoDone(event, index) {
-    const todos = [...this.props.todos];
-    todos[index] = { ...todos[index] }; // object.assign
-    todos[index].done = event.target.checked;
-    this.props.onToggleTodoDone(todos);
+    this.props.onToggleTodoDone({ index, done: event.target.checked });
   }
 
   handleAllTodosDone() {
@@ -74,8 +71,8 @@ const mapDispatchToProps = dispatch => {
     onAddNewTodo(todo) {
       dispatch(actions.addNewTodo(todo));
     },
-    onToggleTodoDone(todos) {
-      dispatch(actions.toggleTodoDone(todos));
+    onToggleTodoDone(toggle) {
+      dispatch(actions.toggleTodoDone(toggle));
     },
     onAllTodosDone(todos) {
       dispatch(actions.allTodosDone(todos));

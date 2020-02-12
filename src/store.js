@@ -40,10 +40,10 @@ export const actions = {
       todo
     };
   },
-  toggleTodoDone(todos) {
+  toggleTodoDone(toggle) {
     return {
       type: TOGGLE_TODO_DONE,
-      todos
+      toggle
     };
   },
   allTodosDone(todos) {
@@ -75,9 +75,14 @@ export function reducer(state = initialState, action) {
       };
     }
     case TOGGLE_TODO_DONE: {
+      const todos = [...state.todos];
+      todos[action.toggle.index] = {
+        ...todos[action.toggle.index],
+        done: action.toggle.done
+      };
       return {
         ...state,
-        todos: [...action.todos]
+        todos
       };
     }
     case ALL_TODOS_DONE: {
