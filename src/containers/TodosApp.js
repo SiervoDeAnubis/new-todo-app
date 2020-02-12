@@ -5,28 +5,17 @@ import { connect } from "react-redux";
 import { actions } from "../store";
 
 class TodosApp extends Component {
-  handleNewTodo(event) {
-    this.setState({
-      newTodo: event.target.value
-    });
-  }
-
-  handleAddNew(event) {
+  handleAddNewTodo(event) {
     event.preventDefault();
-    const todos = [
-      ...this.state.todos,
-      {
-        title: this.state.newTodo,
-        done: false
-      }
-    ];
-    this.setState({
-      newTodo: "",
-      todos
+    this.props.onAddNewTodo({
+      title: this.props.newTodo,
+      done: false
     });
+
+    this.props.onChangeNewTodo("");
   }
 
-  handleCheck(event, index) {
+  handleToggleTodoDone(event, index) {
     const todos = [...this.state.todos];
     todos[index] = { ...todos[index] }; // object.assign
     todos[index].done = event.target.checked;
@@ -51,16 +40,16 @@ class TodosApp extends Component {
   }
 
   render() {
-    const { message, todos, newTodo, onNewTodoChange } = this.props;
+    const { message, todos, newTodo, onChangeNewTodo } = this.props;
     return (
       <div className="todos">
         <h1>{message}</h1>
         <NewTodoForm
           newTodo={newTodo}
-          handleAddNew={this.handleAddNew.bind(this)}
-          handleNewTodo={onNewTodoChange}
+          handleAddNewTodo={this.handleAddNewTodo.bind(this)}
+          handleChangeTodo={onChangeNewTodo}
         />
-        <button onClick={() => this.handleAllDone()}>All Done</button>
+        <button onClick={() => this.handleToggleTodoDone()}>All Done</button>
         {todos.length === 0 ? (
           <span>No Items</span>
         ) : (
@@ -85,8 +74,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onNewTodoChange(newTodo) {
-      dispatch(actions.newTodoChange(newTodo));
+    onChangeNewTodo(newTodo) {
+      dispatch(actions.changeNewTodo(newTodo));
+    },
+    onAddNewTodo(todo) {
+      dispatch(actions.addNewTodo(todo));
     }
   };
 };

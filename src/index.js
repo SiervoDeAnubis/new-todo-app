@@ -5,7 +5,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { reducer } from "./store";
 import { createStore, applyMiddleware, compose } from "redux";
-import logger from "redux-logger";
+import { logger } from "redux-logger";
 import * as serviceWorker from "./serviceWorker";
 
 const store = createStore(

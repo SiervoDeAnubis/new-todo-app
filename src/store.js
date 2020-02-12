@@ -1,3 +1,4 @@
+const CHANGE_NEW_TODO = "CHANGE_NEW_TODO";
 const ADD_NEW_TODO = "ADD_NEW_TODO";
 
 const initialState = {
@@ -24,20 +25,32 @@ const initialState = {
 };
 
 export const actions = {
-  newTodoChange(newTodo) {
+  changeNewTodo(newTodo) {
+    return {
+      type: CHANGE_NEW_TODO,
+      newTodo
+    };
+  },
+  addNewTodo(todo) {
     return {
       type: ADD_NEW_TODO,
-      newTodo
+      todo
     };
   }
 };
 
 export function reducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_NEW_TODO: {
+    case CHANGE_NEW_TODO: {
       return {
         ...state,
         newTodo: action.newTodo
+      };
+    }
+    case ADD_NEW_TODO: {
+      return {
+        ...state,
+        todos: [...state.todos, action.todo]
       };
     }
     default:
