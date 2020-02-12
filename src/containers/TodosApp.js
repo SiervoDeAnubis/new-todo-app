@@ -19,15 +19,8 @@ class TodosApp extends Component {
     this.props.onToggleTodoDone({ index, done: event.target.checked });
   }
 
-  handleAllTodosDone() {
-    const todos = this.props.todos.map(todo => ({ ...todo, done: true }));
-    this.props.onAllTodosDone(todos);
-  }
-
   handleTodoDelete(index) {
-    const todos = [...this.props.todos];
-    todos.splice(index, 1);
-    this.props.onDeleteTodo(todos);
+    this.props.onDeleteTodo({ index });
   }
 
   render() {
@@ -40,7 +33,7 @@ class TodosApp extends Component {
           handleAddNewTodo={this.handleAddNewTodo.bind(this)}
           handleChangeTodo={onChangeNewTodo}
         />
-        <button onClick={() => this.handleAllTodosDone()}>All Done</button>
+        <button onClick={() => this.props.onAllTodosDone()}>All Done</button>
         {todos.length === 0 ? (
           <span>No Items</span>
         ) : (
@@ -74,8 +67,8 @@ const mapDispatchToProps = dispatch => {
     onToggleTodoDone(toggle) {
       dispatch(actions.toggleTodoDone(toggle));
     },
-    onAllTodosDone(todos) {
-      dispatch(actions.allTodosDone(todos));
+    onAllTodosDone() {
+      dispatch(actions.allTodosDone());
     },
     onDeleteTodo(todos) {
       dispatch(actions.deleteTodo(todos));

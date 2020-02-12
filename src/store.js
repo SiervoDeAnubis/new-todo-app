@@ -46,16 +46,15 @@ export const actions = {
       toggle
     };
   },
-  allTodosDone(todos) {
+  allTodosDone() {
     return {
-      type: ALL_TODOS_DONE,
-      todos
+      type: ALL_TODOS_DONE
     };
   },
-  deleteTodo(todos) {
+  deleteTodo(todo) {
     return {
       type: DELETE_TODO,
-      todos
+      todo
     };
   }
 };
@@ -86,15 +85,18 @@ export function reducer(state = initialState, action) {
       };
     }
     case ALL_TODOS_DONE: {
+      const todos = state.todos.map(todo => ({ ...todo, done: true }));
       return {
         ...state,
-        todos: [...action.todos]
+        todos
       };
     }
     case DELETE_TODO: {
+      const todos = [...state.todos];
+      todos.splice(action.todo.index, 1);
       return {
         ...state,
-        todos: [...action.todos]
+        todos
       };
     }
     default:
